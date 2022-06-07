@@ -26,7 +26,7 @@ resource "aws_instance" "oobjumpbox" {
   get_password_data = true
 
   network_interface {
-    network_interface_id = aws_network_interface.oobjumpbox-mgmt.id
+    network_interface_id = aws_network_interface.oobjumpbox-nic.id
     device_index = 0
   }
 
