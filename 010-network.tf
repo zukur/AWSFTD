@@ -68,15 +68,15 @@ resource "aws_subnet" "subnet_diag-a" {
 }
 
 # Subnets AZ B
-#resource "aws_subnet" "subnet_outside-b" {
-#  vpc_id     = aws_vpc.vpc-1.id
-#  cidr_block = "10.42.11.0/24"
-#  availability_zone = var.az-b
-#
-#  tags = {
-#    Name = "CL-FTD-Outside-b"
-#  }
-#}
+resource "aws_subnet" "subnet_outside-b" {
+  vpc_id     = aws_vpc.vpc-1.id
+  cidr_block = "10.42.11.0/24"
+  availability_zone = var.az-b
+
+  tags = {
+    Name = "CL-FTD-Outside-b"
+  }
+}
 
 resource "aws_subnet" "subnet_inside-b" {
   vpc_id     = aws_vpc.vpc-1.id
@@ -144,16 +144,16 @@ resource "aws_nat_gateway" "natgw-a" {
   ]
 }
 
-#resource "aws_nat_gateway" "natgw-b" {
-#  allocation_id = aws_eip.natgw-b-eip.id
-#  subnet_id = aws_subnet.subnet_outside-b.id
-#  tags = {
-#    "name" = "CL-FTD-NatGw-b"
-#  }
-#  depends_on = [
-#    aws_internet_gateway.igw-outside
-#  ]
-#}
+resource "aws_nat_gateway" "natgw-b" {
+  allocation_id = aws_eip.natgw-b-eip.id
+  subnet_id = aws_subnet.subnet_outside-b.id
+  tags = {
+    "name" = "CL-FTD-NatGw-b"
+  }
+  depends_on = [
+    aws_internet_gateway.igw-outside
+  ]
+}
 
 # Route table
 resource "aws_route_table" "outside" {
@@ -215,7 +215,7 @@ resource "aws_route_table_association" "assoc-servers-a" {
   route_table_id = aws_route_table.internal-a.id
 }
 
-#resource "aws_route_table_association" "assoc-outside-b" {
-#  subnet_id      = aws_subnet.subnet_outside-b.id
-#  route_table_id = aws_route_table.outside.id
-#}
+resource "aws_route_table_association" "assoc-outside-b" {
+  subnet_id      = aws_subnet.subnet_outside-b.id
+  route_table_id = aws_route_table.outside.id
+}
