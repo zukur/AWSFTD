@@ -137,7 +137,7 @@ resource "aws_nat_gateway" "natgw-a" {
   allocation_id = aws_eip.natgw-a-eip.id
   subnet_id = aws_subnet.subnet_outside-a.id
   tags = {
-    "name" = "CL-FTD-NatGw-a"
+    Name = "CL-FTD-NatGw-a"
   }
   depends_on = [
     aws_internet_gateway.igw-outside
@@ -148,7 +148,7 @@ resource "aws_nat_gateway" "natgw-b" {
   allocation_id = aws_eip.natgw-b-eip.id
   subnet_id = aws_subnet.subnet_outside-b.id
   tags = {
-    "name" = "CL-FTD-NatGw-b"
+    Name = "CL-FTDgNatGw-b"
   }
   depends_on = [
     aws_internet_gateway.igw-outside
