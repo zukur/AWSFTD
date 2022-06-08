@@ -18,7 +18,7 @@ resource "aws_instance" "srv-a" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t3.small"
   key_name = aws_key_pair.deployer.key_name
-  user_data = file("srv_init.sh")
+  user_data = file("srv-a_init.sh")
 
   network_interface {
     network_interface_id = aws_network_interface.srv-a-nic.id
