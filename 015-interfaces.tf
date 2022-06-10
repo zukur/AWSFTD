@@ -1,4 +1,7 @@
-#interfaces + sg assignment
+###########################################
+#### Create Network Interfaces
+#### Assign Security Group to Interface
+###########################################
 resource "aws_network_interface" "fmc-mgmt" {
   description       = "fmc-mgmt"
   subnet_id         = aws_subnet.subnet_management-a.id
@@ -23,9 +26,23 @@ resource "aws_network_interface" "srv-a-nic" {
   }
 }
 
-resource "aws_network_interface_sg_attachment" "linuxsrv-nic_attachment" {
+resource "aws_network_interface_sg_attachment" "srv-a-nic_attachment" {
   security_group_id    = aws_security_group.srv-mgmt.id
   network_interface_id = aws_network_interface.srv-a-nic.id
+}
+
+resource "aws_network_interface" "srv-b-nic" {
+  subnet_id         = aws_subnet.subnet_servers-b.id
+  source_dest_check = false
+  private_ips = ["10.42.14.101"]
+  tags = {
+      Name = "CL-FTD-srv-b-nic"
+  }
+}
+
+resource "aws_network_interface_sg_attachment" "srv-b-nic_attachment" {
+  security_group_id    = aws_security_group.srv-mgmt.id
+  network_interface_id = aws_network_interface.srv-b-nic.id
 }
 
 resource "aws_network_interface" "oobjumpbox-nic" {
@@ -98,7 +115,9 @@ resource "aws_network_interface_sg_attachment" "ftdv01-diag_attachment" {
   network_interface_id = aws_network_interface.ftdv01-diag.id
 }
 
-#Public IP addresses
+###########################################
+#### Create Elastic IP (Public IP) for Interfaces
+###########################################
 resource "aws_eip" "oobjumpbox-eip" {
   vpc                       = true
   network_interface         = aws_network_interface.oobjumpbox-nic.id

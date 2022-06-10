@@ -1,3 +1,6 @@
+###########################################
+#### Print outputs to the terminal
+###########################################
 output "oobjumpbox_Administrator_Password" {
    value = rsadecrypt(aws_instance.oobjumpbox.password_data,file("cl-ftd.pem.prv"))
  }

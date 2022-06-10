@@ -1,7 +1,13 @@
+###########################################
+#### Manage default security group
+###########################################
 resource "aws_default_security_group" "default" {
   vpc_id = aws_vpc.vpc-1.id
 }
 
+###########################################
+#### Define custom security groups
+###########################################
 resource "aws_security_group" "allow_all" {
   name        = "Allow All"
   description = "Allow all traffic"

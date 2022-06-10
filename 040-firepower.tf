@@ -1,3 +1,6 @@
+###########################################
+#### Search for FMCv image
+###########################################
 data "aws_ami" "fmcv" {
   most_recent = true
   owners = ["aws-marketplace"]
@@ -13,6 +16,9 @@ data "aws_ami" "fmcv" {
   }
 }
 
+###########################################
+#### Search for FTDv image
+###########################################
 data "aws_ami" "ftd" {
   most_recent = true
   owners = ["aws-marketplace"]
@@ -28,6 +34,9 @@ data "aws_ami" "ftd" {
   }
 }
 
+###########################################
+#### Deploy FMCv
+###########################################
 resource "aws_instance" "fmcv" {
   ami           = data.aws_ami.fmcv.id
   instance_type = "c5.4xlarge"
@@ -45,6 +54,9 @@ resource "aws_instance" "fmcv" {
   }
 }
 
+###########################################
+#### Deploy NGFWv01 / FTDv01
+###########################################
 resource "aws_instance" "ftdv01" {
   ami           = data.aws_ami.ftd.id
   instance_type = "c5.xlarge"
