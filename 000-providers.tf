@@ -1,7 +1,6 @@
 ###########################################
 #### Define provider
 ###########################################
-
 terraform {
   required_providers {
     aws = {
@@ -13,7 +12,6 @@ terraform {
 ###########################################
 #### Define credentials for AWS
 ###########################################
-
 provider "aws" {
   #access_key = ""
   #secret_key = ""
@@ -23,7 +21,6 @@ provider "aws" {
 ###########################################
 #### Check for active Available Zones (AZ)
 ###########################################
-
 data "aws_availability_zones" "available" {
   state = "available"
 }

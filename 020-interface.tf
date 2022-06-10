@@ -3,7 +3,7 @@
 #### Assign Security Group to Interface
 ###########################################
 resource "aws_network_interface" "fmc-mgmt" {
-  description       = "fmc-mgmt"
+  description       = "CL-FTD-fmc-mgmt"
   subnet_id         = aws_subnet.subnet_management-a.id
   source_dest_check = false
   private_ips = ["10.42.3.100"]
